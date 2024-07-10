@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    body {
+        margin-top: 70px;
+        background-color: #f8f9fa; /* Cambiamos la imagen de fondo por un color de fondo */
+    }
+
+    .card {
+        background-color: #ffffff; /* Fondo blanco para las tarjetas */
+        margin-bottom: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera para las tarjetas */
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .card-img {
+        width: 100px; /* Tamaño fijo para las imágenes de los productos */
+        height: auto;
+    }
+
+    .delete-button {
+        color: #dc3545;
+        font-size: 0.875rem;
+        text-decoration: none;
+    }
+
+    .delete-button:hover {
+        text-decoration: underline;
+    }
+
+    .total-price {
+        font-size: 1.2rem;
+    }
+
+    .pay-button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .summary-card {
+        background-color: #ffffff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+        margin-bottom: 20px;
+    }
+</style>
+
+<main class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h4 class="text-center mb-4">Productos en tu Carrito</h4>
+            {% for bicycle in bicycles %}
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ bicycle.image.url }}" class="card-img" alt="{{ bicycle.name }}">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ bicycle.name }}</h5>
+                            <p class="card-text">Precio: ${{ bicycle.price|floatformat:0 }}</p>
+                            <a href="{% url 'remove_from_cart' bicycle.id %}" class="delete-button">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-4">
+            <div class="summary-card">
+                <h5 class="card-title mb-3">Resumen del Carrito</h5>
+                <ul class="list-group list-group-flush">
+                    {% for bicycle in bicycles %}
+                    <li class="list-group-item">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <img src="{{ bicycle.image.url }}" class="card-img" alt="{{ bicycle.name }}">
+                            </div>
+                            <div class="col-md-8">
+                                <p class="mb-0">{{ bicycle.name }}</p>
+                                <p class="fw-bold">Precio: ${{ bicycle.price|floatformat:0 }}</p>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                    <li class="list-group-item fw-bold total-price">Total: ${{ total|floatformat:0 }}</li>
+                </ul>
+                <div class="text-center mt-3">
+                    <a href="#" class="btn btn-primary pay-button">Pagar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

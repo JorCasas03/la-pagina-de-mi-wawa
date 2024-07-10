@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<style>
+    /* Estilos CSS para la tarjeta y el carrusel */
+    .background-image {
+        background-image: url('https://img.freepik.com/vector-gratis/papel-pintado-simple-lindo-patron-corazon-aniversario-copulas_1017-49423.jpg?w=1060&t=st=1720638240~exp=1720638840~hmac=eafcc35bcc2fc12eb94ddeab0a78704858f0affc58056442422ebeffcdc80fde');
+        background-size: cover;
+        background-position: center;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Estilos para la tarjeta "Te amo mucho" */
+    .card-te-amo {
+        position: absolute;
+        top: 20px; /* Ajusta la posición vertical según necesites */
+        left: 50%; /* Centra horizontalmente */
+        transform: translateX(-50%); /* Centra horizontalmente */
+        padding: 15px;
+        background-color: rgba(255, 255, 255, 0.8); /* Fondo con blur */
+        backdrop-filter: blur(10px); /* Efecto de blur */
+        border: 1px solid rgba(0, 0, 0, 0.2); /* Borde transparente */
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000; /* Asegura que esté encima del carrusel */
+        font-family: 'Courier New', Courier, monospace; /* Tipografía tipo carta */
+        color: black; /* Color de texto negro */
+        max-width: 80%; /* Ancho máximo para evitar cubrir el carrusel */
+        text-align: center; /* Centrar texto */
+    }
+
+    .card-te-amo h3 {
+        font-size: 18px; /* Tamaño de fuente ajustado */
+        margin: 0; /* Elimina el margen por defecto */
+    }
+
+    /* Estilos CSS para el carrusel y la presentación */
+    .carousel-inner img {
+        max-height: 500px; /* Altura máxima de las imágenes del carrusel */
+        object-fit: contain; /* Conserva la relación de aspecto */
+    }
+
+    .love-message {
+        position: absolute;
+        color: black; /* Color de texto negro */
+        font-size: 18px; /* Tamaño de fuente */
+        font-family: 'Courier New', Courier, monospace; /* Tipografía tipo carta */
+        font-weight: bold; /* Negrita */
+    }
+
+    .top-left {
+        top: 10px;
+        left: 10px;
+    }
+
+    .top-right {
+        top: 10px;
+        right: 10px;
+    }
+
+    .bottom-left {
+        bottom: 10px;
+        left: 10px;
+    }
+
+    .bottom-right {
+        bottom: 10px;
+        right: 10px;
+    }
+</style>
+
+<div class="background-image">
+    <div class="overlay"></div>
+    <div class="content">
+        <!-- Tarjeta "Te amo mucho" -->
+        <div class="card-te-amo">
+            <h3>Me di el tiempito de hacerte algo bonito:c, tu sabes lo mucho que te amo y que haría cualquier cosa por ti
+                contigo si he aprendido muchas cosas, lo lindo que es una relación sana, te amo con todo mi corazón
+            </h3>
+        </div>
+
+        <!-- Carrusel -->
+        <div id="carouselExampleControls" class="carousel slide mt-5" data-bs-ride="carousel" style="max-width: 600px;">
+            <div class="carousel-inner">
+                <!-- Iterar sobre las imágenes del modelo -->
+                {% for image in carousel_images %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <div class="card">
+                        <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.description }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ image.description }}</h5>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Controles del carrusel -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
+        </div>
+
+        <!-- Mensajes "Te amo" -->
+        <div class="love-message top-left">Te amo</div>
+        <div class="love-message top-right">Te amo</div>
+        <div class="love-message bottom-left">Te amo</div>
+        <div class="love-message bottom-right">Te amo</div>
+    </div>
+</div>
+
+{% endblock %}

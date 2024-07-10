@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card" style="box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <div class="card-body text-center" style="padding: 30px;">
+                    <h1 class="card-title mb-4">Editar Perfil</h1>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group mb-3">
+                            <label for="id_image">Imagen de perfil</label><br>
+                            {% if form.instance.image %}
+                            <img src="{{ form.instance.image.url }}" alt="Imagen de perfil actual" style="max-width: 200px; height: auto; border-radius: 8px;">
+                            {% else %}
+                            <img src="{% static 'path/to/default/image.jpg' %}" alt="Imagen de perfil predeterminada" style="max-width: 200px; height: auto; border-radius: 8px;">
+                            {% endif %}
+                            <br><br>
+                            {{ form.image }}
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="id_first_name">Nombre</label>
+                            <input type="text" id="id_first_name" name="first_name" value="{{ request.user.first_name }}" class="form-control text-center" style="max-width: 300px; margin: 0 auto;" maxlength="30">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="id_last_name">Apellido</label>
+                            <input type="text" id="id_last_name" name="last_name" value="{{ request.user.last_name }}" class="form-control text-center" style="max-width: 300px; margin: 0 auto;" maxlength="30">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="id_address">Dirección</label>
+                            <input type="text" id="id_address" name="address" value="{{ request.user.profile.address }}" class="form-control text-center" style="max-width: 300px; margin: 0 auto;">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="id_birth_date">Fecha de Nacimiento</label>
+                            <input type="date" id="id_birth_date" name="birth_date" value="{{ request.user.profile.birth_date }}" class="form-control text-center" style="max-width: 300px; margin: 0 auto;">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="id_phone_number">Número de Teléfono</label>
+                            <input type="tel" id="id_phone_number" name="phone_number" value="{{ request.user.profile.phone_number }}" class="form-control text-center" style="max-width: 300px; margin: 0 auto;">
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

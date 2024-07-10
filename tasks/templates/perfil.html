@@ -1,0 +1,38 @@
+<!-- perfil.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6"> <!-- Reducido de col-md-8 a col-md-6 para hacer más angosto -->
+            <div class="card" style="margin-top: 50px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <div class="card-body text-center" style="padding: 30px;">
+                    <h1 class="card-title">Perfil de Usuario</h1>
+                    <img src="{{ profile.image.url }}" alt="Imagen de perfil" class="img-fluid mb-3" style="max-width: 200px; height: auto; border-radius: 8px;"> <!-- Estilo cambiado a img-fluid, sin clase rounded-circle -->
+                    <p class="card-text"><strong>Nombre:</strong> {{ profile.user.first_name }}</p>
+                    <p class="card-text"><strong>Apellido:</strong> {{ profile.user.last_name }}</p>
+                    <p class="card-text"><strong>Dirección:</strong> {{ profile.address }}</p>
+                    <p class="card-text"><strong>Fecha de Nacimiento:</strong> {{ profile.birth_date }}</p>
+                    <p class="card-text"><strong>Número de Teléfono:</strong> {{ profile.phone_number }}</p>
+                    
+                    <!-- Otros campos del perfil si es necesario -->
+                    <a href="{% url 'editPerfil' %}" class="btn btn-primary mt-3">Editar Perfil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        margin-top: 50px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .card-body {
+        padding: 30px;
+    }
+</style>
+
+{% endblock %}
